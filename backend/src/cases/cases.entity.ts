@@ -7,11 +7,16 @@ export class Case {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({
+    type: 'datetime',
+  })
   dateTimeOpened: Date;
 
-  @Column()
-  dateTimeClosed: Date;
+  @Column({
+    nullable: true,
+    type: 'datetime',
+  })
+  dateTimeClosed: Date | null;
 
   @Column({
     type: 'text',
