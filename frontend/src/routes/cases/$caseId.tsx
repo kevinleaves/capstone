@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { fetchCases } from '../../utils/cases/fetchCases';
+import { Button } from '@/components/ui/button';
 
 export const Route = createFileRoute('/cases/$caseId')({
   loader: ({ params }) => fetchCases(parseInt(params.caseId)),
@@ -22,6 +23,7 @@ function CaseIdComponent() {
     <div className="">
       Case ID: {caseId} Hello "/cases/$caseId"!
       <pre>{JSON.stringify(caseData, null, 2)}</pre>
+      <Button>hi</Button>
     </div>
   );
 }
