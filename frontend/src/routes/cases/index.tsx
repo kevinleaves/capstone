@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { fetchCases } from '../../utils/cases/fetchCases';
+import CaseList from '@/modules/cases/components/CaseList';
 
 export const Route = createFileRoute('/cases/')({
   loader: () => fetchCases(),
@@ -17,8 +18,7 @@ function RouteComponent() {
   const cases = Route.useLoaderData();
   return (
     <div>
-      Hello "/cases"!
-      <pre>{JSON.stringify(cases, null, 2)}</pre>
+      <CaseList cases={cases} />
     </div>
   );
 }

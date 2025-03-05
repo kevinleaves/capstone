@@ -23,7 +23,10 @@ function CaseIdComponent() {
     <div className="">
       Case ID: {caseId} Hello "/cases/$caseId"!
       <pre>{JSON.stringify(caseData, null, 2)}</pre>
-      <Button>hi</Button>
+      <div>
+        <Button>Edit</Button>
+        <Button>Delete</Button>
+      </div>
     </div>
   );
 }
