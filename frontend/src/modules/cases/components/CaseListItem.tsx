@@ -1,9 +1,12 @@
 import type { Case } from '../types';
-import { Button } from '@/components/ui/button';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { Link } from '@tanstack/react-router';
 import { Badge } from '@/components/ui/badge';
-import { getBadgeVariantForPriority, getBadgeVariantForStatus } from '../util';
+import {
+  formatTimestring,
+  getBadgeVariantForPriority,
+  getBadgeVariantForStatus,
+} from '../util';
 
 interface Props {
   caseItem: Case;
@@ -40,12 +43,10 @@ export default function CaseListItem({ caseItem }: Props) {
           {caseItem.priority}
         </Badge>
       </TableCell>
-      <TableCell>{caseItem.dateTimeOpened}</TableCell>
-      <TableCell>{caseItem.dateTimeClosed}</TableCell>
-      <TableCell>
-        <Button>Edit</Button>
-        <Button>Delete</Button>
-      </TableCell>
+      <TableCell>{formatTimestring(caseItem.dateTimeOpened)}</TableCell>
+      {caseItem.dateTimeClosed ? (
+        <TableCell>{formatTimestring(caseItem.dateTimeClosed)}</TableCell>
+      ) : null}
     </TableRow>
   );
 }

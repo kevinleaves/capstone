@@ -25,7 +25,6 @@ export default function CaseList({ cases }: Props) {
             <TableHead>Priority</TableHead>
             <TableHead>Date/Time Opened</TableHead>
             <TableHead>Date/Time Closed</TableHead>
-            <TableHead>Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
