@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui/sonner';
 import { Link, Outlet, createRootRoute } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 import { Button } from '@/components/ui/button';
@@ -30,6 +31,7 @@ function RootComponent() {
       </nav>
       <div className="p-8">
         <Outlet />
+        <Toaster />
       </div>
       <TanStackRouterDevtools />
     </div>

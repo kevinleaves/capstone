@@ -2,9 +2,10 @@ import { useState } from 'react';
 import type { Case } from '@/modules/cases/types';
 import { createFileRoute } from '@tanstack/react-router';
 import { fetchCases } from '../../utils/cases/fetchCases';
-import { Button } from '@/components/ui/button';
+
 import { formatTimestring } from '@/modules/cases/util';
 import CaseFormModal from '@/modules/cases/components/CaseFormModal';
+import DeleteCaseDialog from '@/modules/cases/components/DeleteCaseDialog';
 
 export const Route = createFileRoute('/cases/$caseId')({
   loader: ({ params }) => fetchCases(parseInt(params.caseId)),
@@ -24,7 +25,6 @@ function CaseIdComponent() {
 
   return (
     <div className="flex flex-col gap-4">
-      {/* <pre>{JSON.stringify(caseData, null, 2)}</pre> */}
       <div className="flex justify-between p-4">
         <h1 className="">
           Case <p className="font-bold">{caseData.subject}</p>
@@ -35,8 +35,8 @@ function CaseIdComponent() {
             formMode="edit"
             caseData={caseData}
           />
-          <Button variant={'outline'}>Edit</Button>
-          <Button variant={'destructive'}>Delete</Button>
+
+          <DeleteCaseDialog caseData={caseData} />
         </div>
       </div>
       <div className="flex gap-8 p-4">
