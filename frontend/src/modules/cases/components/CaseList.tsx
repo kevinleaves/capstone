@@ -1,5 +1,6 @@
 import { Case } from '../types';
 import CaseListItem from './CaseListItem';
+import CaseFormModal from './CaseFormModal';
 import {
   Table,
   TableBody,
@@ -7,6 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { Separator } from '@/components/ui/separator';
 
 interface Props {
   cases: Case[];
@@ -16,6 +18,8 @@ export default function CaseList({ cases }: Props) {
   return (
     <>
       <h1 className="text-2xl font-bold">CASE LIST</h1>
+      <CaseFormModal buttonText="New" formMode="new" />
+      <Separator className="my-4" />
       <Table>
         <TableHeader>
           <TableRow>

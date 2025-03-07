@@ -8,8 +8,8 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   return (
-    <div>
-      <nav className="flex gap-2 border-b-2 border-blue-300 py-4">
+    <div className="">
+      <nav className="flex gap-2 border-b-2 border-blue-300 p-4">
         <Button asChild>
           <Link
             to={'/'}
@@ -28,7 +28,9 @@ function RootComponent() {
           </Link>
         </Button>
       </nav>
-      <Outlet />
+      <div className="p-8">
+        <Outlet />
+      </div>
       <TanStackRouterDevtools />
     </div>
   );
