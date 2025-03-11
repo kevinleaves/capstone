@@ -1,9 +1,16 @@
 import { Toaster } from '@/components/ui/sonner';
-import { Link, Outlet, createRootRoute } from '@tanstack/react-router';
+import {
+  Link,
+  Outlet,
+  createRootRouteWithContext,
+} from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 import { Button } from '@/components/ui/button';
+import { QueryClient } from '@tanstack/react-query';
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<{
+  queryClient: QueryClient;
+}>()({
   component: RootComponent,
 });
 

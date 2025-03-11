@@ -3,7 +3,12 @@ import { fetchCases } from '../../utils/cases/fetchCases';
 import CaseList from '@/modules/cases/components/CaseList';
 
 export const Route = createFileRoute('/cases/')({
-  loader: () => fetchCases(),
+  loader: async ({ context: { queryClient } }) => {
+    return queryClient.fetchQuery({
+      queryKey: ['cases'],
+      queryFn: () => fetchCases(),
+    });
+  },
   onError(err) {
     console.error(err);
   },
@@ -16,9 +21,5 @@ export const Route = createFileRoute('/cases/')({
 
 function RouteComponent() {
   const cases = Route.useLoaderData();
-  return (
-    <div>
-      <CaseList cases={cases} />
-    </div>
-  );
+  return <div>{<CaseList cases={cases} />}</div>;
 }

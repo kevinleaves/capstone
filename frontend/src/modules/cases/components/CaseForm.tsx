@@ -1,10 +1,10 @@
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { useEffect } from 'react';
 import { Case, CasePriority, CaseStatus } from '../types';
 import { Button } from '@/components/ui/button';
-import { useNavigate, useRouter } from '@tanstack/react-router';
+import { useNavigate } from '@tanstack/react-router';
+import { useQueryClient, useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import {
   Form,
@@ -31,6 +31,7 @@ interface Props {
   initialData?: Case;
   mode: 'edit' | 'new';
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setCaseData: React.Dispatch<React.SetStateAction<Case>>;
 }
 
 const formSchema = z.object({
@@ -44,9 +45,37 @@ const formSchema = z.object({
     .nonempty(),
 });
 
-export default function CaseForm({ initialData, mode, setIsOpen }: Props) {
+export default function CaseForm({
+  initialData,
+  mode,
+  setIsOpen,
+  setCaseData,
+}: Props) {
   const from = mode == 'new' ? '/cases' : '/cases/$caseId';
   const navigate = useNavigate({ from });
+
+  const queryClient = useQueryClient();
+
+  const updateMutation = useMutation({
+    mutationFn: ({ id, data }: { id: number; data: Partial<Case> }) =>
+      updateCase(id, data),
+    onSuccess: (updatedCaseData, variables) => {
+      // trigger rerender
+      setCaseData(updatedCaseData);
+      queryClient.invalidateQueries({
+        queryKey: ['case', variables.id],
+      });
+
+      toast(`Case ${variables.id} has been successfully updated!`);
+      // Close the modal
+      setIsOpen(false);
+      // Show success message
+    },
+    onError: (error) => {
+      console.error('Error updating case:', error);
+      toast('Failed to update case. Please try again.');
+    },
+  });
 
   // define form
   const form = useForm<z.infer<typeof formSchema>>({
@@ -58,14 +87,8 @@ export default function CaseForm({ initialData, mode, setIsOpen }: Props) {
     },
   });
 
-  const { formState } = form;
+  // const { formState } = form;
   type FormValues = z.infer<typeof formSchema>;
-
-  useEffect(() => {
-    if (formState.isSubmitSuccessful) {
-      onSuccess();
-    }
-  }, [formState]);
 
   // define a submit handler
   async function onSubmit(values: FormValues) {
@@ -80,16 +103,17 @@ export default function CaseForm({ initialData, mode, setIsOpen }: Props) {
     if (mode == 'new') {
       await createCase(formData);
       toast('Case has been successfully created!');
+      setIsOpen(false);
       navigate({ to: '/cases' });
     } else {
       const newFormData = { ...values };
-      await updateCase(initialData?.id, newFormData);
+      if (initialData?.id) {
+        updateMutation.mutate({
+          id: initialData.id,
+          data: newFormData,
+        });
+      }
     }
-  }
-
-  // this fn runs on successful submit
-  function onSuccess() {
-    setIsOpen(false);
   }
 
   return (

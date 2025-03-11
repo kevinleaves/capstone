@@ -8,7 +8,14 @@ import CaseFormModal from '@/modules/cases/components/CaseFormModal';
 import DeleteCaseDialog from '@/modules/cases/components/DeleteCaseDialog';
 
 export const Route = createFileRoute('/cases/$caseId')({
-  loader: ({ params }) => fetchCases(parseInt(params.caseId)),
+  loader: async ({ context: { queryClient }, params }) => {
+    const id = parseInt(params.caseId);
+
+    return queryClient.fetchQuery({
+      queryKey: ['case', id],
+      queryFn: () => fetchCases(id),
+    });
+  },
   onError(err) {
     console.error(err);
   },
@@ -21,7 +28,7 @@ export const Route = createFileRoute('/cases/$caseId')({
 });
 
 function CaseIdComponent() {
-  const [caseData] = useState<Case>(Route.useLoaderData());
+  const [caseData, setCaseData] = useState<Case>(Route.useLoaderData());
 
   return (
     <div className="flex flex-col gap-4">
@@ -34,6 +41,7 @@ function CaseIdComponent() {
             buttonText="Edit"
             formMode="edit"
             caseData={caseData}
+            setCaseData={setCaseData}
           />
 
           <DeleteCaseDialog caseData={caseData} />

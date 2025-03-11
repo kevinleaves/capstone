@@ -9,12 +9,14 @@ interface Props {
   buttonText: string;
   formMode: 'edit' | 'new';
   caseData?: Case;
+  setCaseData: React.Dispatch<React.SetStateAction<Case>>;
 }
 
 export default function CaseFormModal({
   caseData,
   buttonText,
   formMode,
+  setCaseData,
 }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -27,6 +29,7 @@ export default function CaseFormModal({
           mode={formMode}
           initialData={caseData}
           setIsOpen={setIsOpen}
+          setCaseData={setCaseData}
         />
       </DialogContent>
     </Dialog>
