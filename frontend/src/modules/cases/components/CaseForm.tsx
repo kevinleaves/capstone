@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
 import { Case, CasePriority, CaseStatus } from '../types';
 import { Button } from '@/components/ui/button';
+import { useNavigate, useRouter } from '@tanstack/react-router';
+import { toast } from 'sonner';
 import {
   Form,
   FormControl,
@@ -43,6 +45,9 @@ const formSchema = z.object({
 });
 
 export default function CaseForm({ initialData, mode, setIsOpen }: Props) {
+  const from = mode == 'new' ? '/cases' : '/cases/$caseId';
+  const navigate = useNavigate({ from });
+
   // define form
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -63,7 +68,7 @@ export default function CaseForm({ initialData, mode, setIsOpen }: Props) {
   }, [formState]);
 
   // define a submit handler
-  function onSubmit(values: FormValues) {
+  async function onSubmit(values: FormValues) {
     // do something with the form values. this process is type-safe and validated
     const formData = {
       ...values,
@@ -73,10 +78,12 @@ export default function CaseForm({ initialData, mode, setIsOpen }: Props) {
 
     // submit fn changes function depending on modal mode
     if (mode == 'new') {
-      createCase(formData);
+      await createCase(formData);
+      toast('Case has been successfully created!');
+      navigate({ to: '/cases' });
     } else {
       const newFormData = { ...values };
-      updateCase(initialData?.id, newFormData);
+      await updateCase(initialData?.id, newFormData);
     }
   }
 
