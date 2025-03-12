@@ -1,4 +1,6 @@
 import { Toaster } from '@/components/ui/sonner';
+import { Cloud } from 'lucide-react';
+
 import {
   Link,
   Outlet,
@@ -17,7 +19,8 @@ export const Route = createRootRouteWithContext<{
 function RootComponent() {
   return (
     <div className="">
-      <nav className="flex gap-2 border-b-2 border-blue-300 p-4">
+      <Cloud color="lightblue" size={'4rem'} className="m-4 mb-0" />
+      <nav className="flex gap-2 border-b-2 border-blue-300 p-4 items-center">
         <Button asChild>
           <Link
             to={'/'}

@@ -7,7 +7,8 @@ export async function deleteCase(id: number): Promise<Case> {
       'Content-Type': 'application/json',
     },
   };
-  const url = `http://localhost:3001/cases/${id}`;
+
+  const url = `${import.meta.env.VITE_API_URL}/cases/${id}`;
   const res = await fetch(url, options);
 
   if (!res.ok) {
