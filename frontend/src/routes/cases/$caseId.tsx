@@ -2,7 +2,6 @@ import { useState } from 'react';
 import type { Case } from '@/modules/cases/types';
 import { createFileRoute } from '@tanstack/react-router';
 import { fetchCases } from '../../utils/cases/fetchCases';
-
 import { formatTimestring } from '@/modules/cases/util';
 import CaseFormModal from '@/modules/cases/components/CaseFormModal';
 import DeleteCaseDialog from '@/modules/cases/components/DeleteCaseDialog';
@@ -43,7 +42,6 @@ function CaseIdComponent() {
             caseData={caseData}
             setCaseData={setCaseData}
           />
-
           <DeleteCaseDialog caseData={caseData} />
         </div>
       </div>

@@ -1,6 +1,5 @@
 import { Case } from '../types';
 import CaseListItem from './CaseListItem';
-import CaseFormModal from './CaseFormModal';
 import {
   Table,
   TableBody,
@@ -17,11 +16,9 @@ interface Props {
 export default function CaseList({ cases }: Props) {
   return (
     <>
-      <h1 className="text-2xl font-bold">CASE LIST</h1>
-      <CaseFormModal buttonText="New" formMode="new" />
       <Separator className="my-4" />
-      <Table>
-        <TableHeader>
+      <Table className="border-4 border-gray-100 ">
+        <TableHeader className="bg-blue-100">
           <TableRow>
             <TableHead>Case ID</TableHead>
             <TableHead>Subject</TableHead>
@@ -31,7 +28,7 @@ export default function CaseList({ cases }: Props) {
             <TableHead>Date/Time Closed</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>
+        <TableBody className="border border-gray-100">
           {cases.map((caseItem) => {
             return <CaseListItem caseItem={caseItem} />;
           })}

@@ -31,7 +31,7 @@ interface Props {
   initialData?: Case;
   mode: 'edit' | 'new';
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setCaseData: React.Dispatch<React.SetStateAction<Case>>;
+  setCaseData?: React.Dispatch<React.SetStateAction<Case>>;
 }
 
 const formSchema = z.object({

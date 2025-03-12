@@ -9,7 +9,7 @@ interface Props {
   buttonText: string;
   formMode: 'edit' | 'new';
   caseData?: Case;
-  setCaseData: React.Dispatch<React.SetStateAction<Case>>;
+  setCaseData?: React.Dispatch<React.SetStateAction<Case>>;
 }
 
 export default function CaseFormModal({
