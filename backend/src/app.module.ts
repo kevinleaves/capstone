@@ -11,15 +11,24 @@ import { User } from './users/users.entity';
 
 @Module({
   imports: [
-    // TypeOrmModule.forRoot({
-    //   type: 'sqlite',
-    //   database: 'db.sqlite',
-    //   entities: [Case, User],
-    //   synchronize: true,
-    // }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (config: ConfigService) => {
+        // modify db connection for production to use postgres
+        if (process.env.NODE_ENV === 'production') {
+          return {
+            type: 'postgres',
+            url: process.env.DATABASE_URL || config.get<string>('DATABASE_URL'),
+            entities: [Case, User],
+            ssl: {
+              rejectUnauthorized: false,
+            },
+            migrationsRun: true,
+            synchronize: false,
+          };
+        }
+
+        // otherwise use development sqlite db
         return {
           type: 'sqlite',
           database: config.get<string>('DB_NAME'),
