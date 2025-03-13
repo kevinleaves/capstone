@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import { CaseStatus } from './enums/case-status.enum';
 import { CasePriority } from './enums/case-priority.enum';
 
-@Entity()
+@Entity('cases')
 export class Case {
   @PrimaryGeneratedColumn()
   id: number;
