@@ -23,8 +23,8 @@ import { User } from './users/users.entity';
             ssl: {
               rejectUnauthorized: false,
             },
-            migrationsRun: false,
-            synchronize: true,
+            migrationsRun: true,
+            synchronize: false,
           };
         }
 
