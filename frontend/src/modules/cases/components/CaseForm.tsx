@@ -93,11 +93,16 @@ export default function CaseForm({
   // define a submit handler
   async function onSubmit(values: FormValues) {
     // do something with the form values. this process is type-safe and validated
-    const formData = {
+    const formData: Partial<Case> = {
       ...values,
       dateTimeOpened: new Date().toISOString(),
       dateTimeClosed: null,
     };
+
+    // add a timestamp when case is closed
+    if (formData.status === 'closed') {
+      formData.dateTimeClosed = new Date().toISOString();
+    }
 
     // submit fn changes function depending on modal mode
     if (mode == 'new') {
@@ -106,7 +111,10 @@ export default function CaseForm({
       setIsOpen(false);
       navigate({ to: '/cases' });
     } else {
-      const newFormData = { ...values };
+      const newFormData = {
+        ...values,
+        dateTimeClosed: formData['dateTimeClosed'],
+      };
       if (initialData?.id) {
         updateMutation.mutate({
           id: initialData.id,

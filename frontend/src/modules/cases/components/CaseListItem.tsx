@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import type { Case } from '../types';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { Link } from '@tanstack/react-router';
@@ -14,7 +15,12 @@ interface Props {
 
 export default function CaseListItem({ caseItem }: Props) {
   return (
-    <TableRow>
+    <TableRow
+      className={cn(
+        caseItem.dateTimeClosed &&
+          'line-through text-muted-foreground opacity-70'
+      )}
+    >
       <TableCell>
         <Link
           to="/cases/$caseId"
