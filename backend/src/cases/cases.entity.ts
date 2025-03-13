@@ -8,13 +8,13 @@ export class Case {
   id: number;
 
   @Column({
-    type: 'datetime',
+    type: 'timestamp',
   })
   dateTimeOpened: Date;
 
   @Column({
     nullable: true,
-    type: 'datetime',
+    type: 'timestamp',
   })
   dateTimeClosed: Date | null;
 
