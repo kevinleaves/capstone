@@ -50,7 +50,7 @@ function RouteComponent() {
   return (
     <div>
       <div className="flex justify-between">
-        <h1 className="text-2xl font-bold">CASE LIST</h1>
+        <h1 className="text-2xl font-bold text-foreground">CASE LIST</h1>
         <div className="flex gap-4">
           <CaseFormModal buttonText="New" formMode="new" />
           <div className="flex items-center">

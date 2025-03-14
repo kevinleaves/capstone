@@ -19,8 +19,13 @@ export const Route = createRootRouteWithContext<{
 function RootComponent() {
   return (
     <div className="">
-      <Cloud color="lightblue" size={'4rem'} className="m-4 mb-0" />
-      <nav className="flex gap-2 border-b-2 border-blue-300 p-4 items-center">
+      <div className=" mb-0 flex bg-foreground items-center">
+        <Cloud size={'4rem'} className="mx-8 my-2 text-primary" />
+        <h1 className="text-background font-bold text-3xl">
+          Chirp Case Management
+        </h1>
+      </div>
+      <nav className="flex gap-2 border-b-2 border-primary px-8 py-4 items-center bg-foreground">
         <Button asChild>
           <Link
             to={'/'}
@@ -43,7 +48,7 @@ function RootComponent() {
         <Outlet />
         <Toaster />
       </div>
-      <TanStackRouterDevtools />
+      {/* <TanStackRouterDevtools /> */}
     </div>
   );
 }

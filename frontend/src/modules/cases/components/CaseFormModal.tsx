@@ -22,7 +22,7 @@ export default function CaseFormModal({
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger>
-        <Button variant={'outline'}>{buttonText}</Button>
+        <Button variant={'default'}>{buttonText}</Button>
       </DialogTrigger>
       <DialogContent>
         <CaseForm

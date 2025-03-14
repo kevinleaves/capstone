@@ -34,7 +34,7 @@ if (!rootElement.innerHTML) {
   ReactDOM.createRoot(rootElement).render(
     <StrictMode>
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools />
+        {/* <ReactQueryDevtools /> */}
         <RouterProvider router={router}></RouterProvider>
       </QueryClientProvider>
     </StrictMode>

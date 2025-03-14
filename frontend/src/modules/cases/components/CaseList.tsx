@@ -17,8 +17,8 @@ export default function CaseList({ cases }: Props) {
   return (
     <>
       <Separator className="my-4" />
-      <Table className="border-4 border-gray-100 ">
-        <TableHeader className="bg-blue-100">
+      <Table className="border-4 border-secondary ">
+        <TableHeader className="bg-primary">
           <TableRow>
             <TableHead>Case ID</TableHead>
             <TableHead>Subject</TableHead>
