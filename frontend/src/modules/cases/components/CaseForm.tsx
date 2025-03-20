@@ -171,7 +171,7 @@ export default function CaseForm({
             name="priority"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>status</FormLabel>
+                <FormLabel>priority</FormLabel>
                 <FormControl>
                   <Select
                     onValueChange={field.onChange}
@@ -201,7 +201,7 @@ export default function CaseForm({
             name="subject"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>status</FormLabel>
+                <FormLabel>subject</FormLabel>
                 <FormControl>
                   <Input placeholder="case subject" {...field} />
                 </FormControl>
